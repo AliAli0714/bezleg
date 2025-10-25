@@ -510,6 +510,97 @@ body {
   margin-top: 50px;
 }
 
+.popup::backdrop,
+.popup_overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  display: none; /* 🔒 скрыт по умолчанию */
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup_overlay.active {
+  display: flex; /* 🔓 показываем при активации */
+  animation: fadeIn 0.3s ease;
+}
+
+.popup {
+  background: #fff;
+  border-radius: 60px;
+  width: 600px;
+  padding: 80px 40px 40px 40px;
+  position: relative;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+  transform: scale(0.9);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.popup_overlay.active .popup {
+  transform: scale(1);
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.popup::before {
+  content: '✖';
+  font-size: 24px;
+  position: absolute;
+  top: 40px;
+  right: 60px;
+  color: #f78686;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+
+}
+
+input {
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #eaeaea;
+  margin-top: 10px;
+}
+
+.popup_btn {
+  font-size: 14px;
+  text-transform: uppercase;
+  padding: 20px 0;
+  border-radius: 20px;
+  border: 1px solid #1c1c1c;
+  background: #1c1c1c;
+  color: #fff;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  letter-spacing: 0.1em;  
+}
+
+.popup_btn:hover {
+  cursor: pointer;
+  background: transparent;
+  color: #1c1c1c;
+
+}
+
+
 
 
 @media (max-width: 1200px) {
@@ -630,6 +721,14 @@ body {
     font-size: 32px;
   }
 
+  .menu {
+    z-index: 500;
+  }
+
+  .popup {
+    max-width: 80%;
+  }
+
   .head_contact {
     display: none;
   }
@@ -737,3 +836,105 @@ body {
 }
 
 
+.price-section {
+  background: #1c1c1c;
+  color: #fff;
+  padding: 50px 5%;
+  margin-top: 130px;
+  padding-bottom: 130px;
+}
+
+.price-section h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2em;
+  letter-spacing: 1px;
+}
+
+.price-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.price-header,
+.price-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  align-items: center;
+}
+
+.price-header {
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid #444444;
+}
+
+.price-item {
+  text-align: left;
+}
+
+.price-row:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transition: 0.3s;
+}
+
+/* Адаптивность без медиазапросов — за счёт auto-fit */
+.price-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.price-row, .price-header {
+  min-width: 600px;
+}
+
+@media (max-width: 700px) {
+  .price-header, .price-row {
+    display: flex;
+    flex-direction: column;
+    min-width: auto; /* отменяем фиксированную минимальную ширину */
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin-bottom: 20px;
+  }
+
+  .price-header {
+    display: none; /* скрываем шапку в мобильном виде */
+  }
+
+  .price-row {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .price-item {
+    padding: 5px 0;
+    font-size: 14px;
+    word-break: break-word;
+  }
+
+  /* Добавляем подписи перед каждой ценой */
+  .price-row .price-item:nth-child(1)::before {
+    content: "Услуга: ";
+    font-weight: 600;
+  }
+  .price-row .price-item:nth-child(2)::before {
+    content: "Стандарт: ";
+    font-weight: 600;
+  }
+  .price-row .price-item:nth-child(3)::before {
+    content: "Вахта: ";
+    font-weight: 600;
+  }
+  .price-row .price-item:nth-child(4)::before {
+    content: "2/2: ";
+    font-weight: 600;
+  }
+}
