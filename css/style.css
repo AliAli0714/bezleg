@@ -513,19 +513,23 @@ body {
 .popup::backdrop,
 .popup_overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: env(safe-area-inset-top);
+  left: env(safe-area-inset-left);
+  right: env(safe-area-inset-right);
+  bottom: env(safe-area-inset-bottom);
+  width: calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right));
+  height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
   background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
-  display: none; /* 🔒 скрыт по умолчанию */
+  display: none; 
   align-items: center;
   justify-content: center;
   z-index: 999;
 }
 
+
 .popup_overlay.active {
-  display: flex; /* 🔓 показываем при активации */
+  display: flex; 
   animation: fadeIn 0.3s ease;
 }
 
